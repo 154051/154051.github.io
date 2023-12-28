@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">【笔记】博弈论 | a154051</title>
+  
+    <link rel="shortcut icon" href="/images/chess-king.svg">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+    </style>
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
+  <!-- <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4383751_lzkm4flpsno.css"> -->
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "a154051";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://a154051.gitee.io/";
+  mashiro_option.v_appId = "rs4VVxGj5K6z2TqUYwaD7NNF-gzGzoHsz";
+  mashiro_option.v_appKey = "gIRkS6sOIVSMcgoLHU5Ta1Wo";
+  mashiro_option.mathjax = "1";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+  mashiro_option.t_envID = "https://tranquil-centaur-0714bb.netlify.app/.netlify/functions/twikoo";
+
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/星月夜new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/cover2new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/cover1new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/bg3.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/bg5.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="a154051" type="application/atom+xml">
+</head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;left:31px;">
+    <div class="theme-controls row-container">
+          <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+        <ul class="menu-list"> <li id="white-bg"> 
+            <i class="fa fa-television" aria-hidden="true">
+            </i>
+            </li> 
+            <li id="sakura-bg"> 
+                <i class="iconfont icon-sakura">
+                </i>
+            </li>
+            <li id="gribs-bg">
+                <i class="fa fa-crop-alt" aria-hidden="true">
+                </i>
+            </li>
+            <li id="KAdots-bg">
+                <i class="iconfont icon-dots">
+                </i>
+            </li>
+            <li id="totem-bg">
+                <i class="fa fa-air-freshener" aria-hidden="true">
+                </i>
+            </li>
+            <li id="pixiv-bg">
+                <i class="iconfont icon-pixiv">
+                </i>
+            </li>
+            <li id="bing-bg">
+                <i class="iconfont icon-bing">
+                </i>
+            </li>
+            <li id="dark-bg">
+                <i class="fa fa-moon-o" aria-hidden="true">
+                </i>
+            </li>
+        </ul>
+    </div>
+    <canvas id="night-mode-cover">
+    </canvas>
+</div> 
+  <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;"> 
+    <div class="keys" id="setbtn"> 
+      <button id="open-skinMenu">
+          <style>
+          button#open-skinMenu{
+              transition: all 0.2s linear 0s;
+              outline:none;
+              font-size:16px;
+              position:fixed;
+              bottom:13px;
+              left:15px;
+              background-color: rgba(255,255,255,.95);
+              border-radius: 20px;
+              box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+          }
+          button#open-skinMenu:hover{
+              transition: all 0.2s linear 0s;
+              background-color: rgb(255, 165, 0);
+              color: rgba(255,255,255);
+          }
+          </style>
+          <i class="iconfont icon-gear inline-block rotating">
+        </i> 
+          SCHEME TOOL | 主题工具 
+      </button>
+    </div> 
+  </div> -->
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://a154051.gitee.io/">
+          <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/头像new.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>菜就多练练</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/154051" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/165723104" target="_blank" class="social-github" title="bilibili">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.luogu.com.cn/user/347122" target="_blank" class="social-github" title="洛谷">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/luogu.jpg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <!--  <div id="video-btn" class="loadvideo videolive">  
+    </div>-->
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">a154051</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-home faa-wrench" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          题解
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%AC%94%E8%AE%B0/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          笔记
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags faa-vertical" aria-hidden="true"></i>
+                    标签
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <script>
+        (function (document) {
+            [].forEach.call(document.getElementsByClassName('spoiler'), function(panel) {
+                panel.getElementsByClassName('spoiler-title')[0].onclick = function() {
+                    panel.classList.toggle("collapsed");
+                    panel.classList.toggle("expanded");
+                }
+            });
+        })(document);
+      </script>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.8.0/tocbot.css">
+
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-20.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-20.jpg">
+    </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      【笔记】博弈论</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/头像new.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="/">a154051</a>
+        </span>
+        <span class="bull">
+        <i class="fa fa-calendar" aria-hidden="true"></i></span>
+        2023-12-20    
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/%E7%AC%94%E8%AE%B0/" > 笔记</a></span>
+          
+        </span>
+        
+        <span class="bull">
+        <i class="fa fa-eye" aria-hidden="true"></i></span>
+        <span id="twikoo_visitors">0</span> 次阅读
+          <!-- <span id="/2023/12/20/note-bo-yi-lun/" class="leancloud_visitors" data-flag-title="【笔记】博弈论"></span>次阅读 -->
+      
+    </p>
+      
+        <div>
+          <ul class="spfk-ul">
+            <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            
+              <li class="spfk-li"><a href="/tags/博弈论/" class="butterfly-tags">博弈论</a></li>
+            
+          </ul>
+        </div>
+        <script>
+          function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+          function paintTags(){
+              var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+              for(var i = 0 ; i < tags.length ; ++i){
+                  if(!tagColors.length)colorInit(tagColors,colorNumber);
+                  var j=Math.floor(Math.random()*tagColors.length);
+                  tags[i].classList.add("spfk-color"+tagColors[j]);
+                  tagColors.splice(j,1);
+              }
+          }
+          paintTags()
+      </script>
+      
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <blockquote>
+<p>「 <font color=red>我正是来访者，六轩岛上的第 18 个人类！！！</font>」</p>
+<p>「不好意思，<font color=red>就算迎来了汝，也是 17 人。</font>」</p>
+ <p align="right">—— 海猫鸣泣之时</p>
+
+
+
+</blockquote>
+<p>博弈论主要分为公平组合游戏、非公平组合游戏、反常游戏。本文将讲解公平组合游戏。</p>
+<h2 id="公平组合游戏"><a href="#公平组合游戏" class="headerlink" title="公平组合游戏"></a>公平组合游戏</h2><p>公平组合游戏（Impartial Game）的定义如下：</p>
+<ul>
+<li><p>游戏有两个人参与，二者轮流做出决策，双方均知道游戏的完整信息；</p>
+</li>
+<li><p>任意一个游戏者在某一确定状态可以作出的决策集合只与当前的状态有关，而与游戏者无关；</p>
+</li>
+<li><p>游戏中的同一个状态不可能多次抵达，游戏以玩家无法行动为结束，且游戏一定会在有限步后以非平局结束。</p>
+</li>
+</ul>
+<p>有向图游戏是一个经典的公平组合游戏，它的定义如下：</p>
+<p>在一个有向无环图中，只有一个起点，上面有一个棋子，两个玩家轮流沿着有向边推动棋子，不能走的玩家判负。</p>
+<p>事实上，大部分公平组合游戏都可以转化为有向图游戏，将每一个游戏状态作为一个节点，若一个状态 $A$ 能够通过一次决策变为状态 $B$，则连边 $A\to B$，称 $B$ 为 $A$ 的后继状态。下面都在有向图游戏的基础上讨论，以下的讨论都假设先后手都采取最优策略。</p>
+<p>定义 <strong>必胜状态</strong> 为 <strong>先手</strong>在该状态下能够通过一系列决策获得胜利（即先手必胜）；<strong>必败状态</strong> 为 在该状态下无论<strong>先手</strong>怎么决策，<strong>后手</strong>都能够通过一系列决策获得胜利（即后手必胜）。</p>
+<p>通过推理，我们可以得出下面三条定理：</p>
+<ul>
+<li><p>定理 1：没有后继状态的状态是必败状态。</p>
+</li>
+<li><p>定理 2：一个状态是必胜状态当且仅当存在至少一个必败状态为它的后继状态。</p>
+</li>
+<li><p>定理 3：一个状态是必败状态当且仅当它的所有后继状态均为必胜状态。</p>
+</li>
+</ul>
+<h2 id="SG-函数"><a href="#SG-函数" class="headerlink" title="SG 函数"></a>SG 函数</h2><p>为了更准确地描述胜败状态，我们引入 SG 函数。</p>
+<p>定义 $\operatorname{mex}$ 函数为不属于集合 $S$ 的最小非负整数：</p>
+<script type="math/tex; mode=display">\operatorname{mex}\{S\}=\min\{x\}\quad (x\notin S,x\in N)</script><p>例如 $\operatorname{mex}\{ 0,1,2,5,7 \}=3$。</p>
+<p>设状态 $x$ 有 $k$ 个后继状态 $y_1,y_2,\dots,y_k$，则有：</p>
+<script type="math/tex; mode=display">SG(x)=\operatorname{mex}\{SG(y_1),SG(y_2),\dots,SG(y_k)\}</script><p>显然，一个状态为必败状态的充要条件为该状态的 SG 值为 $0$，必胜状态的充要条件为 SG 值不为 $0$。</p>
+<p>假如只有一个游戏，SG 函数好像没什么用，因为我们只需要知道 SG 值是否为 $0$，而不需要知道具体数值，但如果有多个游戏，情况就不一样了。</p>
+<p>考虑由两个有向图游戏组成的组合游戏，其中，这两个游戏相互独立，即其中任意一个游戏的任意决策都不会影响其他游戏。这个组合游戏的规则是每次要选择一个有向图游戏进行一次移动，最终无法移动的玩家失败。</p>
+<p>定义一个有向图游戏的 SG 值为起点的 SG 值。设这两个游戏的起点分别为 $A,B$。下面我们先假设 SG 值只能降低，详细解释稍后再说。</p>
+<p>显然当这两个游戏的 SG 值都为 $0$ 时为必败状态。</p>
+<p>若 $SG(A)=0,SG(B)\ne 0$，先手可以将 $B$ 移动到 SG 值为 $0$ 的后继状态（因为根据 SG 函数的定义，$B$ 的所有后继状态的 SG 集合包含所有比 $SG(B)$ 小的非负整数），此时为必败状态，因此原状态为必胜状态。</p>
+<p>若 $SG(A)=SG(B)\ne 0$，先手降低任意一个游戏的 SG 值，后手总是可以将另一个游戏的 SG 值降低到与之相等，直到两个游戏的 SG 值为 $0$，此时这个状态由先手拿到，因此后手必胜，原状态为必败状态。</p>
+<p>若 $SG(A)\ne SG(B),SG(A)\ne 0,SG(B)\ne 0$，先手只需将 SG 值较大的游戏降低到与另一个游戏相等，就回到了上面的状态，因此原状态为必胜状态。</p>
+<p>在上面的讨论中，我们总是让 SG 值降低，事实上，一个状态还可能转移到 SG 值比它大的后继状态，如果一个玩家这样做，那么另一个玩家只需将该状态降回原来即可（SG 值大的总是可以降低为 SG 值小的），因此升高 SG 值是无用的。</p>
+<h2 id="SG-定理"><a href="#SG-定理" class="headerlink" title="SG 定理"></a>SG 定理</h2><p>设 $A+B$ 表示两个相互独立的游戏组合而成的游戏，$\oplus$ 表示异或。基于上面的讨论，我们发现当 $SG(A)\oplus SG(B)=0$ 时，组合游戏为必败状态，即 $SG(A+B)=0$；当 $SG(A)\oplus SG(B)\ne 0$ 时，组合游戏为必胜状态，即 $SG(A+B)\ne 0$。我们猜测 $SG(A+B)=SG(A)\oplus SG(B)$，证明如下。</p>
+<p>设 $C,D$ 分别表示 $A,B$ 的任意后继状态，即 $A\to C,B\to D$。则 $A+B$ 的局面要么移动 $A$，要么移动 $B$，即 $(A+B)\to\{C+B\}\cup \{A+D\}$。</p>
+<p>由定义可得，$SG(A+B)=\operatorname{mex}\big\{\{SG(C+B)\}\cup \{SG(A+D)\}\big\}$。</p>
+<p>考虑数学归纳法，对两个有向图进行拓扑排序，拓扑序最大的点为出度为 $0$ 的点。当 $A,B$ 都为拓扑序最大的点时，$SG(A+B)=SG(A)\oplus SG(B)$ 显然成立。假设拓扑序比 $A,B$ 大的点都满足定理，则有 $SG(C+B)=SG(C)\oplus SG(B),SG(A+D)=SG(A)\oplus SG(D)$。</p>
+<p>于是有 $SG(A+B)=\operatorname{mex}\big\{\{SG(C)\oplus SG(B)\}\cup \{SG(A)\oplus SG(D)\}\big\}$。下面将证明 $SG(A)\oplus SG(B)$ 不属于右边两个集合的任何一个，但比它小的非负整数都属于右边两个集合的某一个。</p>
+<p>因为 $A\to C,B\to D$，所以 $SG(A)\ne SG(C),SG(B)\ne SG(D)$，则 $SG(A)\oplus SG(B)$ 不等于 $SG(C)\oplus SG(B)$ 和 $SG(A)\oplus SG(D)$。</p>
+<p>设 $e$ 是比 $SG(A)\oplus SG(B)$ 小的任意非负整数，$k=SG(A)\oplus SG(B)\oplus e$。令 $SG(A),SG(B),e$ 三者分别与 $k$ 异或，则至少有一者异或后会减小（因为 $k$ 的二进制最高位的 $1$ 一定来自这三者之一），但 $e\oplus k=SG(A)\oplus SG(B)&gt;e$，因此这一者不会是 $e$。不妨设这一者为 $SG(A)$，即 $SG(A)\oplus k=SG(B)\oplus e&lt;SG(A)$。由 $SG$ 函数的定义可知，$A$ 一定存在一个后继状态 $C^{‘}$，满足 $SG(C^{‘})=SG(B)\oplus e$，则此时有 $SG(C^{‘})\oplus SG(B)=e$，因此 $e$ 属于右边两个集合的某一个。原命题得证。</p>
+<p>显然这个定理可以推广至多个游戏，设 $X$ 为 $n$ 个独立的有向图游戏的组合游戏，它们的起点分别为 $s_1,s_2,\dots,s_n$，则有 $SG(X)=SG(s_1)\oplus SG(s_2)\oplus \dots \oplus SG(s_n)$。</p>
+<h2 id="经典模型"><a href="#经典模型" class="headerlink" title="经典模型"></a>经典模型</h2><p>博弈论中有很多经典的游戏，很多博弈都可以转化为这些游戏。</p>
+<h3 id="巴什博弈"><a href="#巴什博弈" class="headerlink" title="巴什博弈"></a>巴什博弈</h3><p>有一堆石子，数量为 $n$，两个人轮流拿石子，每个人每次至少拿 $1$ 个，至多拿 $m$ 个，最终拿完石子的人获胜。</p>
+<p>设 $SG(k)$ 表示 $k$ 个石子的 SG 值，显然有 $SG(0)=0$，</p>
+<p>当 $k\le m$ 时，$k$ 可以转移到 $0$ 到 $k-1$ 任意一个局面，因此 $SG(k)=k,(k\le m)$；</p>
+<p>当 $k=m+1$ 时，可以转移到 $1$ 到 $m$ 任意一个局面，则 $SG(m+1)=0$；</p>
+<p>当 $k=m+2$ 时，可以转移到 $2$ 到 $m+1$ 任意一个局面，则 $SG(m+2)=1\dots\dots$</p>
+<p>以此类推，可以得到 $SG(n)=n\bmod (m+1)$。当且仅当 $(m+1) \mid n$ 时先手必败，否则先手必胜。</p>
+<h3 id="Nim-游戏"><a href="#Nim-游戏" class="headerlink" title="Nim 游戏"></a>Nim 游戏</h3><p>有 $n$ 堆石子，第 $i$ 堆有 $a_i$ 个石子，两个玩家轮流取走任意一堆的任意个石子，但不能不取，拿完石子的人获胜。</p>
+<p>这 $n$ 堆石子相互独立，因此可以看作 $n$ 个独立的游戏。对于一堆有 $k$ 个石子的游戏，显然有 $SG(k)=k$。因此 Nim 游戏的 SG 值为 $a_i\oplus a_2\oplus \dots \oplus a_n$，称其为 Nim 和。</p>
+<p>考虑先手必胜时要如何操作，当 Nim 和为 $k(k&gt;0)$ 时，设 $k$ 的二进制最高位的 $1$ 在第 $d$ 位，则一定存在 $a_i$ 满足其二进制第 $d$ 位为 $1$，于是 $a_i\oplus k &lt;a_i$，因此只需将 $a_i$ 取到 $a_i\oplus k$ 即可。</p>
+<h3 id="阶梯-Nim"><a href="#阶梯-Nim" class="headerlink" title="阶梯 Nim"></a>阶梯 Nim</h3><p>有 $n$ 堆石子，第 $i(i&gt;0)$ 堆有 $a_i$ 个石子，两人轮流操作，每人每次可以任选一个 $k(k&gt;0)$，将第 $k$ 堆石子中的任意个石子移动到第 $k-1$ 堆，第 $0$ 堆的石子无法移动，最后无法操作的人输。</p>
+<p>结论：先手必败当且仅当奇数堆中的石子数异或和为 $0$。</p>
+<p>证明：当奇数堆异或和为 $0$ 时，无论怎么移动都会使奇数堆的异或和大于 $0$。如果先手移动偶数堆的石子到奇数堆，后手可以将移动到奇数堆的石子再往下移动到偶数堆，异或和就变回了 $0$；如果先手移动奇数堆，可以看作两人在奇数堆上玩 Nim 游戏，所以后手可以通过移动奇数堆的石子使异或和变回 $0$。</p>
+<p>综上，奇数堆异或和为 $0$ 的局面都由先手拿到，异或和不为 $0$ 的局面都由后手拿到。无法移动的局面为所有石子都在第 $0$ 堆，此时奇数堆的异或和为 $0$，因此该局面由先手拿到，故先手必败。</p>
+<h3 id="k-Nim"><a href="#k-Nim" class="headerlink" title="k-Nim"></a>k-Nim</h3><p>有 $n$ 堆石子，第 $i$ 堆有 $a_i$ 个石子，每次可以从不超过 $k$ 堆中各取走任意个石子，不能操作的人输。</p>
+<p>结论：设 $s_i$ 表示 $a_1,a_2\dots ,a_n$ 二进制下第 $i$ 位 $1$ 的个数。则先手必败当且仅当对所有的 $s_i$，都有 $s_i\equiv 0 \pmod{(k+1)}$。</p>
+<p>证明：</p>
+<p>设 $s_i^{‘}=s_i\bmod (k+1)$。</p>
+<p>$a_i$ 全为 $0$ 时为必败状态，此时满足条件。</p>
+<p>若所有的 $s_i^{‘}$ 为 $0$，由于最多选择 $k$ 堆，因此 $s_i$ 的变化量的绝对值不会超过 $k$，并且至少有一个 $s_i$ 产生变化，所以该操作结束后一定会使得某些 $s_i^{‘}$ 不为 $0$。</p>
+<p>若 $s_i^{‘}$ 不全为 $0$，下面将证明一定存在一种合法的方案使得所有的 $s_i^{‘}$ 变回 $0$。</p>
+<p>考虑数学归纳法，假设当前在二进制下的第 $i$ 位，满足对所有的 $j&gt;i$，$s_j^{‘}$ 都已经变为了 $0$，并且已经改变了 $m(m\le k)$ 堆石子。</p>
+<p>显然对于已经改变的 $m$ 堆石子，我们任意改变其二进制下第 $i$ 位的值都是合法的。设这 $m$ 堆石子的第 $i$ 位上有 $a$ 个 $1$ 和 $b$ 个 $0$。</p>
+<p>下面分情况讨论，</p>
+<ol>
+<li><p>$a\ge s_i^{‘}$，只需要从这 $a$ 个中选择 $s_i^{‘}$ 个将其变为 $0$ 即可。</p>
+</li>
+<li><p>$b\ge (k+1)-s_i^{‘}$，只需要从这 $b$ 个中选择 $(k+1)-s_i^{‘}$ 个将其变为 $1$ 即可。</p>
+</li>
+<li><p>上述两种情况都不满足，即 $a&lt;s_i^{‘}$ 且 $b&lt;(k+1)-s_i^{‘}$。那么先将这 $a$ 个 $1$ 变为 $0$，然后再从这 $m$ 堆之外选 $s_i^{‘}-a$ 堆第 $i$ 位为 $1$ 的，并将其变为 $0$ 即可，此时选择的总堆数变为了 $m+s_i^{‘}-a=b+s_i^{‘}$，由于 $b&lt;(k+1)-s_i^{‘}$，所以 $b+s_i^{‘}&lt;k+1$，这种取法是合法的。</p>
+</li>
+</ol>
+<p>综上，一定存在一种合法的方案使得所有的 $s_i^{‘}$ 变回 $0$。</p>
+<p>故 $s_i^{‘}$ 全为 $0$ 为必败状态，$s_i^{‘}$ 不全为 $0$ 为必胜状态，结论得证。</p>
+<h3 id="威佐夫博弈"><a href="#威佐夫博弈" class="headerlink" title="威佐夫博弈"></a>威佐夫博弈</h3><p>有两堆石子，数量任意，可以不同。游戏开始由两个人轮流取石子。游戏规定，每次有两种不同的取法：一是可以在任意的一堆中取走任意多的石子；二是可以在两堆中同时取走相同数量的石子。最后把石子全部取完者为胜者。</p>
+<p>结论：设石子数量为 $a,b(a&lt;b)$，当且仅当 $a=\lfloor \frac{\sqrt{5}+1}{2} \rfloor\times (b-a)$ 时先手必败。</p>
+<p>证明太抽象了，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/solution/P2252">自己看题解吧</a>。</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>博弈论常用解题方法有：转化为经典模型；手算几个寻找结论；打表 SG 找规律；通过一些方法维护 SG 函数；将原游戏转化为一个新的游戏。</p>
+<h3 id="【模板】Nim-游戏"><a href="#【模板】Nim-游戏" class="headerlink" title="【模板】Nim 游戏"></a>【模板】Nim 游戏</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2197">题目链接</a></p>
+<p>模板题。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=1e3+7;
+
+int main()
+{
+    int T;
+    cin&gt;&gt;T;
+    while(T--) {
+        int n,ans=0;
+        scanf(&quot;%d&quot;,&amp;n);
+        for(int i=1;i&lt;=n;++i) {
+            int x;
+            scanf(&quot;%d&quot;,&amp;x);
+            ans^=x;
+        }
+        if(ans!=0)  puts(&quot;Yes&quot;);
+        else  puts(&quot;No&quot;);
+    }
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="【模板】威佐夫博弈"><a href="#【模板】威佐夫博弈" class="headerlink" title="【模板】威佐夫博弈"></a>【模板】威佐夫博弈</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2252">题目链接</a></p>
+<p>模板题。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=5e5+7;
+
+int main()
+{
+    double k=(sqrt(5.0)+1)/2.0;
+    int a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    if(a&gt;b)  swap(a,b);
+    if(a==int((b-a)*k))  puts(&quot;0&quot;);
+    else  puts(&quot;1&quot;);
+
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="CF388C-Fox-and-Card-Game"><a href="#CF388C-Fox-and-Card-Game" class="headerlink" title="CF388C Fox and Card Game"></a>CF388C Fox and Card Game</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF388C">题目链接</a></p>
+<p>桌子上有 $n(n\le 100)$ 堆牌，每堆有 $s_i(s_i\le 100)$ 张牌。每张牌上都有一个正整数。C 可以从任何非空牌堆的顶部取出一张牌，J 可以从任何非空牌堆的底部取出一张牌。C 先取，当所有的牌堆都变空时游戏结束。他们都想最大化他所拿牌的分数（即每张牌上正整数的和）。问他们所拿牌的分数分别是多少？</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>先考虑所有牌堆都为偶数的情况，结论为对于每堆牌，先手会取走顶部的一半，后手会取走底部的一半，将这个局面记为稳定局面，设此时先手有 $a$ 分，后手有 $b$ 分。</p>
+<p>证明：设先后手最终分别获得 $x,y$ 分。无论一方怎么拿牌，另一方都可以与对方对照着拿牌来迫使最终达到稳定局面，因此他们获得的分数一定不会低于稳定局面，即 $x\ge a,y\ge b$，又因为两人拿到的分数之和不变，即 $x+y=a+b$，因此 $x=a,y=b$。</p>
+<p>接下来考虑奇数牌堆，对于某一个奇数牌堆，某一方取走一张牌后，这个牌堆就变为了偶数堆，两人各分一半，因此，谁先取了奇数牌堆，谁就多拿走了中间那张牌。所以先手会取中间牌最大的奇数牌堆，后手会取第二大的，先手再取第三大的，就这样一直取下去，直到没有奇数牌堆。剩下就一人一半就行了。</p>
+<p>用大根堆将奇数牌堆按中间牌从大到小排序，依次取出即可。时间复杂度 $O(n\log n)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=1e2+7;
+int a[N][N],b[N][N];
+priority_queue&lt;int&gt; q;
+int main()
+{
+    int n,ans1=0,ans2=0;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;++i) {
+        int m;
+        scanf(&quot;%d&quot;,&amp;m);
+        for(int j=1;j&lt;=m;++j) {
+            scanf(&quot;%d&quot;,&amp;a[i][j]);
+            b[i][j]=b[i][j-1]+a[i][j];
+        }
+        ans1+=b[i][m/2];ans2+=b[i][m]-b[i][(m+1)/2];
+        if(m&amp;1)  q.push(a[i][(m+1)/2]);
+    }
+    bool flag=0;
+    while(!q.empty()) {
+        if(!flag)  ans1+=q.top();
+        else  ans2+=q.top();
+        flag^=1;q.pop();
+    }
+    cout&lt;&lt;ans1&lt;&lt;&quot; &quot;&lt;&lt;ans2;
+
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="CF794E-Choosing-Carrot"><a href="#CF794E-Choosing-Carrot" class="headerlink" title="CF794E Choosing Carrot"></a>CF794E Choosing Carrot</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF794E">题目链接</a></p>
+<p>有一排 $n(n\le 3\times 10^5)$ 个数，甲乙轮流取，每次可以选择两端中的一端取走一个数，直到剩下一个数，甲希望剩下的数最大，乙希望最小。同时，<strong>在游戏开始前</strong>，甲可以提前操作 $k(0\le k\le n-1)$ 次（操作规则和上面一样），<strong>游戏开始后</strong>甲是先手。问对于每一个 $k$，最后剩下来的数是几。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>先考虑 $k=0$ 的情况，如果 $n$ 是偶数，设 $mid=\frac{n}{2}$，与上题类似，无论先手怎么取，后手都可以与先手相对着取，则可以保证最后留下来的数不大于 $\max\{ a_{mid},a_{mid+1}\}$。而对于先手，如果 $a_{mid}&gt;a_{mid+1}$，先手就先取右端，之后无论后手怎么取，先手都和对方相对着取，这样就留下了 $a_{mid}$，当 $a_{mid}&lt;a_{mid+1}$ 时也同理，因此先手可以保证最后留下来的数不小于 $\max\{ a_{mid},a_{mid+1}\}$。综上，最后留下来的数一定为 $\max\{ a_{mid},a_{mid+1}\}$。</p>
+<p>如果 $n$ 是奇数，设 $mid=\frac{n+1}{2}$先手任取一端后就变为了偶数的情况，但此时是后手拿到偶数的情况，因此后手会留下中间两个中较小的一个，而先手希望最后留下来的最大，因此答案为 $\max\left\{ \min\{ a_{mid-1},a_{mid}\},\min\{ a_{mid},a_{mid+1}\} \right\}$。</p>
+<p>接下来考虑 $k&gt;0$ 的情况，当留下的区间确定后该情况的答案也确定了，先手会选择所有情况中最大的答案。假设 $n$ 为偶数，设 $mid=\frac{n}{2}$，当 $k=0$ 时答案为 $\max\{ a_{mid},a_{mid+1}\}$；</p>
+<p>当 $k=2$ 时答案为 $\max\left\{ \max\{ a_{mid-1},a_{mid}\},\max\{ a_{mid},a_{mid+1}\},\max\{ a_{mid+1},a_{mid+2}\} \right\}$；</p>
+<p>当 $k=4$ 时答案为 $\max\left\{ \max\{ a_{mid-2},a_{mid-1}\},\dots,\max\{ a_{mid+2},a_{mid+3}\} \right\}$。</p>
+<p>可以发现当 $n$ 为偶数时，$k+2$ 相当于在 $k$ 的答案的基础上左右扩展一个。同理可以推得 $n$ 为奇数时也符合这个结论。注意要特判 $k=n-1$ 的情况。</p>
+<p>时间复杂度为 $O(n)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=3e5+7,inf=1e9+7;
+int a[N],b[N];
+int main()
+{
+    int n;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;++i)  scanf(&quot;%d&quot;,&amp;a[i]);
+    if(n==1) {cout&lt;&lt;a[1];return 0;}
+    for(int i=2;i&lt;n;++i)  b[i]=max(min(a[i-1],a[i]),min(a[i],a[i+1]));
+    int max0=-inf,max1=-inf,h=n/2,t;
+    if(n&amp;1)  t=h+2,max1=b[h+1],printf(&quot;%d &quot;,max1),max0=a[h+1];
+    else  t=h+1,max0=max(a[h],a[t]),printf(&quot;%d &quot;,max0);
+    for(int i=n-1;i&gt;=2;--i) {
+        if(i&amp;1)  max1=max(max1,max(b[h],b[t])),--h,++t,printf(&quot;%d &quot;,max1); 
+        else  max0=max(max0,max(a[h],a[t])),printf(&quot;%d &quot;,max0);
+    }
+    printf(&quot;%d &quot;,max0);
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="AGC002E-Candy-Piles"><a href="#AGC002E-Candy-Piles" class="headerlink" title="[AGC002E] Candy Piles"></a>[AGC002E] Candy Piles</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT_agc002_e">题目链接</a></p>
+<p>桌上有 $n(n\le 10^5)$ 堆糖果，第 $i$ 堆糖果有 $a_i$ 个糖。两人在玩游戏，轮流进行，每次可以将当前最大的那堆糖果全部吃完，或者将每堆糖果吃掉一个。吃完的人输，假设两人足够聪明，问谁有必胜策略？</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>将这 $n$ 堆糖果按数量从多到少依次排序，每堆糖果排成一排，设左上角为 $(1,1)$，如图，</p>
+<p><img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-20-1.png" alt=""></p>
+<p>如果将当前最大的那堆糖果全部吃完（操作一），就会变成 $(2,1)$，</p>
+<p><img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-20-2.png" alt=""></p>
+<p>如果将每堆糖果吃掉一个（操作二），就会变成 $(1,2)$，</p>
+<p><img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-20-3.png" alt=""></p>
+<p>于是发现，设当前在 $(i,j)$，则执行一次操作一会变成 $(i+1,j)$，相当于向右走一步；执行一次操作二会变成 $(i,j+1)$，相当于向下走一步。</p>
+<p>显然如果一个点的右边和下边都没有点，那该点为必败点。一个点为必胜点当且仅当它的右边和下边至少有一个必败点，一个点为必败点当且仅当它的右边和下边都为必胜点。</p>
+<p>则有结论：$(i,j)$ 和 $(i+1,j+1)$ 的胜败状态相同。</p>
+<p>证明：设 $0$ 表示必败，$1$ 表示必胜。若 $(i,j)$ 为 $1$，则 $(i+1,j)$ 和 $(i,j+1)$ 中至少有一个为 $0$，因此 $(i+1,j+1)$ 一定为 $1$。</p>
+<p>若 $(i,j)$ 为 $0$，则 $(i+1,j)$ 和 $(i,j+1)$ 都为 $1$。考虑反证法，假设 $(i+1,j+1)$ 为 $1$，则 $(i+2,j)$ 和 $(i,j+2)$ 必须为 $0$，进而有 $(i+2,j+1)$ 和 $(i+1,j+2)$ 都为 $1$，由此可推出 $(i+1,j+1)$ 为 $0$，与假设矛盾，因此 $(i+1,j+1)$ 为 $0$。</p>
+<p>综上，$(i,j)$ 和 $(i+1,j+1)$ 的胜败状态相同。</p>
+<p>因此只需从 $(1,1)$ 一直往右下方走，直到右下方没有点，此时只能一直向右走或者一直向下走，则只需判断右边和下边剩余点的奇偶即可。</p>
+<p>时间复杂度 $O(n)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=1e5+7;
+int a[N];
+bool cmp(int x,int y) {return x&gt;y;}
+int main()
+{
+    int n;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;++i)  scanf(&quot;%d&quot;,&amp;a[i]);
+    sort(a+1,a+1+n,cmp);
+    int mx=0;
+    for(int i=1;i&lt;=n;++i) 
+        if(a[i]&gt;=i)  mx=i;
+    if((a[mx]-mx)&amp;1)  puts(&quot;First&quot;);
+    else {
+        int cnt=0;
+        for(int i=mx+1;i&lt;=n;++i) {
+            if(a[i]&lt;mx)  break;
+            ++cnt;
+        }
+        if(cnt&amp;1)  puts(&quot;First&quot;);
+        else  puts(&quot;Second&quot;);
+    }
+
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="SP11414-COT3-Combat-on-a-tree"><a href="#SP11414-COT3-Combat-on-a-tree" class="headerlink" title="SP11414 COT3 - Combat on a tree"></a>SP11414 COT3 - Combat on a tree</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1110G">题目链接</a></p>
+<p>两人在一棵 $n(n\le 10^5)$ 个节点的树上玩游戏，根节点为 $1$，每个节点最初都是黑色或白色，他们轮流执行以下操作：从当前树中选择一个白色节点 $v$，将路径 $(1,v)$ 上的所有白色节点都变为黑色。无法操作的玩家失败，问先手是否能够必胜，并求出第一步的方案。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>考虑维护每个点的 SG 值，设 $SG(i)$ 表示以 $i$ 为根的子树的 SG 值，$SG(i)(k)$ 表示在 $i$ 子树内选择点 $k$ 进行操作后的 SG 值，$son_i$ 表示 $i$ 的儿子数量，$i_j$ 表示 $i$ 的第 $j$ 个儿子。</p>
+<p>如果 $i$ 是黑点，可以发现 $i$ 的儿子间都是独立的，因此 $SG(i)=SG(i_1)\oplus SG(i_2)\oplus \dots \oplus SG(i_{son_i})$，<br>但只求 SG 值是不够的，因为题目要求第一步选哪些点可以必胜，也就是从 $i$ 的所有后继状态中找出 SG 值为 $0$ 的状态，因此我们还需要维护 $i$ 的所有后继状态，考虑到每个点都至多有 $n$ 个后继状态，因此这是可行的。</p>
+<p>设 $s_i=SG(i_1)\oplus SG(i_2)\oplus \dots \oplus SG(i_{son_i})$，若任选 $i$ 子树中的一点 $k$，设 $k$ 在 $i_j$ 子树内，则当前局面的 SG 值为 $SG(i)(k)=SG(i_1)\oplus \dots \oplus SG(i_{j-1})\oplus SG(i_j)(k)\oplus SG(i_{j+1})\oplus \dots \oplus SG(i_{son_i})$，即 $SG(i)(k)=s_i\oplus SG(i_j)\oplus SG(i_j)(k)$，<br>这是 $i$ 的一个后继状态。我们发现 $SG(i_j)(k)$ 是 $i_j$ 的一个后继状态，由于 $i_j$ 能选的点，$i$ 也可以选，因此 $i_j$ 的任意一个后继状态异或上 $s_i\oplus SG(i_j)$ 就变成了 $i$ 的后继状态。</p>
+<p>这样就得到了一种解法，但一个个异或复杂度太高，我们需要一个能够区间异或的数据结构，自然想到了 01Trie，对每个节点都建一个 01Trie 来保存该子树的所有后继状态的 SG 值，要求 $i$ 的 01Trie，只需将 $i$ 的每一个儿子 $i_j$ 的 01Trie 整体异或上 $s_i\oplus SG(i_j)$，然后将所有儿子的 01Trie 合并就得到了 $i$ 的 01Trie，合并时可以用启发式合并或者线段树合并。需要注意由于要求第一步的方案，因此还要维护每个 SG 值是由哪些点产生的，合并时用启发式合并。</p>
+<p>上面是 $i$ 为黑点的情况，而当 $i$ 为白点时，任选一点后，$i$ 就变成了黑点，就和上面一样了，唯一不同的是多了一个选择点 $i$ 的状态。因此白点就是在黑点的 01Trie 上再插入一个 $s_i$。</p>
+<p>如果使用线段树合并，时间复杂度为 $O(n\log n)$；使用启发式合并为 $O(n\log^2 n)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">//线段树合并
+#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=1e5+7,LEN=17;
+struct node {
+    int ch[2],tag,id,siz;
+}tr[N*18];
+int c[N],tot=0,rt[N],sg[N],tot_id=0,ANS[N];
+vector&lt;int&gt; nx[N],num[N];
+void push(int x,int k)
+{
+    if(k==0)  return ;
+    if((tr[x].tag)&amp;(1&lt;&lt;(k-1)))  swap(tr[x].ch[0],tr[x].ch[1]);
+    if(tr[x].ch[0])  tr[tr[x].ch[0]].tag^=tr[x].tag;
+    if(tr[x].ch[1])  tr[tr[x].ch[1]].tag^=tr[x].tag;
+    tr[x].tag=0;
+}
+void merge(int &amp;now,int re,int k)
+{
+    if(!now||!re)  {now=now+re;return ;}
+    if(k==0) {
+        tr[now].tag=0;
+        int x=tr[now].id,y=tr[re].id;
+        if(!x||!y)  tr[now].id+=tr[re].id;
+        else {
+            if(num[x].size()&lt;num[y].size())  swap(x,y),swap(tr[now].id,tr[re].id);
+            for(int i=0;i&lt;num[y].size();++i)  num[x].push_back(num[y][i]);
+        }
+        return ;
+    }
+    if(tr[now].tag!=0)  push(now,k);
+    if(tr[re].tag!=0)  push(re,k);
+    merge(tr[now].ch[0],tr[re].ch[0],k-1);
+    merge(tr[now].ch[1],tr[re].ch[1],k-1);
+    tr[now].siz=tr[tr[now].ch[0]].siz+tr[tr[now].ch[1]].siz+1;
+}
+void ins(int &amp;now,int v,int k,int ID)
+{
+    now=++tot;
+    if(k==0) {
+        tr[now].id=++tot_id;
+        num[tot_id].push_back(ID);
+        tr[now].siz=1;
+        return ;
+    }
+    int tmp=(v&gt;&gt;(k-1))&amp;1;
+    ins(tr[now].ch[tmp],v,k-1,ID);
+    tr[now].siz=tr[tr[now].ch[tmp]].siz+1;
+}
+int mex(int now,int k)
+{
+    if(!now)  return 0;
+    int ans=0;
+    while(1) {
+        if(!now)  return ans;
+        if(tr[now].tag!=0)  push(now,k);
+        if(tr[now].siz==(1&lt;&lt;(k+1))-1)  return ans+(1&lt;&lt;k);
+        if(tr[tr[now].ch[0]].siz==(1&lt;&lt;k)-1)  ans+=(1&lt;&lt;(k-1)),now=tr[now].ch[1];
+        else  now=tr[now].ch[0];
+        --k;
+    }
+    return ans;
+}
+void dfs(int x,int fa)
+{
+    int tmp=0;
+    for(int i=0;i&lt;nx[x].size();++i) {
+        int y=nx[x][i];
+        if(y==fa)  continue;
+        dfs(y,x);
+        tmp^=sg[y];
+    }
+    if(!c[x])  ins(rt[x],tmp,LEN,x);
+    for(int i=0;i&lt;nx[x].size();++i) {
+        int y=nx[x][i];
+        if(y==fa)  continue;
+        if(rt[y])  tr[rt[y]].tag^=tmp^sg[y];
+        merge(rt[x],rt[y],LEN);
+    }
+    sg[x]=mex(rt[x],LEN);
+}
+int main()
+{
+    int n;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;++i)  scanf(&quot;%d&quot;,&amp;c[i]);
+    for(int i=1;i&lt;n;++i) {
+        int x,y;
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        nx[x].push_back(y);
+        nx[y].push_back(x);
+    }
+    dfs(1,0);
+    if(sg[1]==0)  puts(&quot;-1&quot;);
+    else {
+        int now=rt[1];
+        for(int i=LEN;i&gt;0;--i) {
+            if(tr[now].tag!=0)  push(now,i);
+            now=tr[now].ch[0];
+        }
+        int cnt=num[tr[now].id].size();
+        for(int i=0;i&lt;cnt;++i)  ANS[i]=num[tr[now].id][i];
+        sort(ANS,ANS+cnt);
+        for(int i=0;i&lt;cnt;++i)  printf(&quot;%d &quot;,ANS[i]);
+    }
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="CF1451F-Nullify-The-Matrix"><a href="#CF1451F-Nullify-The-Matrix" class="headerlink" title="CF1451F Nullify The Matrix"></a>CF1451F Nullify The Matrix</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1451F">题目链接</a></p>
+<p>有一个 $n\times m$ 的棋盘，每个格子有一个非负整数的权值。</p>
+<p>两个人轮流操作，每次操作选择两个权值非 $0$ 的格子，左上的点为起点，右下的为终点，每次移动只能向右走一格或者向下走一格，首先给起点的权值减一个正整数，然后从起点移动到终点，路径上每个点的权值随意加减（也可以不改变），但是都不能改成负数。</p>
+<p>不能操作（全变成 $0$）的人就输了，问谁必胜。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>设当前在 $(i,j)$，则每走一步都会使 $i+j$ 加上 $1$。将 $i+j$ 相同的分为一组，记为第 $i+j$ 组，也就是将每一斜行分为一组，设 $s_{i}$ 表示 $i$ 组内所有格子权值的异或和，则有结论：当且仅当所有的 $s_i$ 都为 $0$ 时先手必败。</p>
+<p>证明：当所有的 $s_i$ 都为 $0$ 时，由于起点的权值只能减小，因此起点所在的组的异或和在操作后一定不为 $0$。</p>
+<p>当存在 $s_i$ 不为 $0$ 时，则找到最小的 $i$ 使得 $s_i\ne 0$，将第 $i$ 组看作一个 Nim 游戏，则一定存在一种合法方案能够降低某个格子的值并使得 $s_i$ 变为 $0$，然后从该点出发，以 $(n,m)$ 为结尾，就可以从 $s_{i+1}$ 遍历到 $s_{n+m}$。对于每一个 $s_j (i+1\le j \le n+m)$，若 $s_j=0$ 则保持不变；若 $s_j\ne 0$，则修改其中任意一个格子的权值使得 $s_j=0$ 即可。</p>
+<p>时间复杂度 $O(nm)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=1e2+7;
+int a[N][N];
+int main()
+{
+    int T;
+    cin&gt;&gt;T;
+    while(T--) {
+        int n,m;
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        for(int i=1;i&lt;=n;++i)
+            for(int j=1;j&lt;=m;++j)
+                scanf(&quot;%d&quot;,&amp;a[i][j]);
+        bool flag=0;
+        for(int i=2;i&lt;=n+m;++i) {
+            int sum=0;
+            for(int j=1,k=i-1;j&lt;=n&amp;&amp;k&gt;=1;++j,--k)
+                if(k&lt;=m)  sum^=a[j][k];
+            if(sum) {flag=1;break;}
+        }
+        if(flag)  puts(&quot;Ashish&quot;);
+        else  puts(&quot;Jeel&quot;);
+    }
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="CF1149E-Election-Promises"><a href="#CF1149E-Election-Promises" class="headerlink" title="CF1149E Election Promises"></a>CF1149E Election Promises</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1149E">题目链接</a></p>
+<p>给定一张有向无环图，每个点有一个非负整数点权。两人轮流操作，每次操作为选择一个权值为不为 $0$ 的点，并将它的值<strong>降低</strong>为一个非负整数，对于它的出点（即走一步能到达的点），可以将其值任意修改为一个非负整数（可以保持不变）。最终无法操作的人输，问先手能否必胜，如果必胜请输出第一步的方案。</p>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        题解
+    </div>
+    <div class='spoiler-content'>
+        <p>和上题类似，我们可以将每个点分组，使得它们满足：任意操作都会使必败状态变为必胜状态，必胜状态一定能够通过合法的操作变为必败状态。</p>
+<p>我们令每个点和它的所有出点都不在同一组，设每个组的权值 $s_i$ 为组内所有点权值的异或和，当且仅当所有组都为 $0$ 时为必败状态，这样就满足了任意操作都会使其变为必胜状态。接下来考虑如何分组才能使得必胜状态能够转移到必败状态。</p>
+<p>在上题中选择一个点后可以修改其后的所有组，类似地，我们希望对于每一组，选择其中任意一点后可以修改该组前面的所有组。也就是该组前面的每一组都有该点的出点，又因为当前组没有出点，自然想到了 $\operatorname{mex}$ 操作，一个点所在的组为：对其所有出点所在的组的编号进行 $\operatorname{mex}$ 操作所得到的数。于是对原图进行拓扑排序，按拓扑序的逆序进行分组即可。</p>
+<p>这样对于必胜状态，只需找到编号最大的权值不为 $0$ 的组，该组的点的出点所在的组一定包含了前面所有组，就和上一题一样修改就行了，输出方案也比较简单。</p>
+<p>时间复杂度 $O(n)$。</p>
+
+    </div>
+</div>
+<div class='spoiler collapsed'>
+    
+    <div class='spoiler-title'>
+        代码
+    </div>
+    <div class='spoiler-content'>
+        <pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long ll;
+using namespace std;
+const int N=2e5+7;
+vector&lt;int&gt; nx[N],last[N],num[N];
+ll a[N],sum[N];
+int deg[N],col[N];
+deque&lt;int&gt; q;
+bool vis[N];
+int main()
+{
+    int n,m;
+    cin&gt;&gt;n&gt;&gt;m;
+    for(int i=1;i&lt;=n;++i)  scanf(&quot;%lld&quot;,&amp;a[i]);
+    for(int i=1;i&lt;=m;++i) {
+        int x,y;
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        nx[x].push_back(y);
+        last[y].push_back(x);
+        ++deg[x];
+    }
+    for(int i=1;i&lt;=n;++i)  
+        if(!deg[i]) {
+            q.push_back(i);
+            col[i]=1;
+            sum[1]^=a[i];
+            num[1].push_back(i);
+        }
+    int mx=1;
+    while(!q.empty()) {
+        int x=q.front();
+        q.pop_front();
+        for(int i=0;i&lt;last[x].size();++i) {
+            int y=last[x][i];
+            --deg[y];
+            if(!deg[y]) {
+                q.push_back(y);
+                for(int j=0;j&lt;nx[y].size();++j)
+                    vis[col[nx[y][j]]]=1;
+                int mex=1;
+                while(vis[mex])  ++mex;
+                col[y]=mex;sum[mex]^=a[y];
+                mx=max(mx,mex);
+                num[mex].push_back(y);
+                for(int j=0;j&lt;nx[y].size();++j)
+                    vis[col[nx[y][j]]]=0;
+            }
+        }
+    }
+    int flag=0;
+    for(int i=mx;i;--i) {
+        if(!sum[i])  continue;
+        int cnt=1;
+        while(sum[i]&gt;&gt;cnt)  ++cnt;
+        for(int j=0;j&lt;num[i].size();++j) {
+            int x=num[i][j];
+            if(a[x]&amp;(1&lt;&lt;(cnt-1))) {a[x]^=sum[i];flag=x;break;}
+        }
+        for(int j=0;j&lt;nx[flag].size();++j) {
+            int x=nx[flag][j];
+            if(sum[col[x]])  a[x]^=sum[col[x]],sum[col[x]]=0;
+        }
+    }
+    if(!flag)  puts(&quot;LOSE&quot;);
+    else  {
+        puts(&quot;WIN&quot;);
+        for(int i=1;i&lt;=n;++i)  printf(&quot;%lld &quot;,a[i]);
+    }
+    return 0;
+}
+</code></pre>
+
+    </div>
+</div>
+<h3 id="P3235-HNOI2014-江南乐"><a href="#P3235-HNOI2014-江南乐" class="headerlink" title="P3235 [HNOI2014] 江南乐"></a>P3235 [HNOI2014] 江南乐</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3235">题目链接</a></p>
+<p><a href="https://a154051.gitee.io/2023/12/06/sol-P3235-jiang-nan-le/">写过题解了</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/game-theory/impartial-game/">公平组合游戏 - OI Wiki</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20611132?utm_id=0">10170 Sprague-Grundy定理是怎么想出来的 - 王赟 Maigo</a></p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+        
+          
+            <div class="post-nepre full next">
+          
+            <a href="/2023/12/06/sol-P3235-jiang-nan-le/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-6.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/23-12-6.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                【题解】P3235 [HNOI2014] 江南乐</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<!-- <div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "rs4VVxGj5K6z2TqUYwaD7NNF-gzGzoHsz",
+        appKey: "gIRkS6sOIVSMcgoLHU5Ta1Wo",
+        master: 'eeb5bf9161f41a9bbee1b6af0daba9b0',
+        tagMeta: ["博主","小伙伴","访客"],
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ...",
+        metaPlaceholder: {"nick":"昵称","mail":"邮箱(用于获取头像和收到回复,非必填)","link":"网址(https://)"},
+        avatar: 'identicon'
+      })
+  }
+</script> -->
+<div id="tcomment"></div>
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.21/dist/twikoo.all.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://tranquil-centaur-0714bb.netlify.app/.netlify/functions/twikoo', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+  el: '#tcomment', // 容器元素
+  // region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+  // path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+  // lang: 'zh-CN', // 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/main/src/client/utils/i18n/index.js
+})
+</script>
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/头像new.jpg" itemprop="image" alt="a154051" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">a154051</a>
+            </h3>
+          </div>
+        </div>
+        <p><i class="iconfont icon-write"></i>菜就多练练</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+<!-- <script type="module">
+    import { pageviewCount } from 'https://unpkg.com/@waline/client/dist/pageview.mjs';
+  
+    pageviewCount({
+      serverURL: 'https://silver-griffin-40160b.netlify.app/.netlify/functions/comment',
+      path: window.location.pathname,
+  
+      // 可选的，用于自定选择器，默认为 `'.waline-pageview-count'`
+      // selector: 'waline-pageview-count',
+  
+      // 可选的，是否在获取时增加访问量，默认为 `true`
+      // update: true,
+    });
+  </script> -->
+
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script> -->
+  <!-- <script type="text/javascript" src="https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            // PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 a154051<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+     <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+        </br>
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv" style='display:none'>
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+
+    
+
+
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script> -->
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/头像new.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">a154051</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/154051" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-home faa-wrench" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  题解
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%AC%94%E8%AE%B0/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  笔记
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags faa-vertical" aria-hidden="true"></i>
+            标签
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/theme-sakura/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+</body>
+</html>

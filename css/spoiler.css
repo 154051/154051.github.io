@@ -1,0 +1,62 @@
+.spoiler {
+    box-shadow:0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2);
+    position:relative;
+    margin:.9765em 0;
+    padding:0 .75rem;
+    border-left:.25rem solid #448aff;
+    border-radius:.125rem;
+    overflow:auto;
+   }
+   
+   .spoiler .spoiler-title {
+       background-color:rgba(68,138,255,.1);
+       margin:0 -.75rem;
+       padding:.5rem .75rem .5rem ;
+       border-bottom:.1rem solid rgba(68,138,255,.1);
+       
+       font-weight:700;
+       font-size: 13px;
+       display: block;
+       cursor: pointer;
+   }
+   
+   .spoiler .spoiler-title:before {
+       font-weight: bold;
+   }
+   
+   .spoiler.collapsed .spoiler-title:before {
+       content: "Show ";
+   }
+   
+   .spoiler.expanded .spoiler-title:before {
+       content: "Hide ";
+   }
+   
+   .spoiler .spoiler-content {
+       padding-top: 0;
+       padding-bottom: 0;
+       margin-top: 0;
+       margin-bottom: 0;
+       -moz-transition-duration: 0.3s;
+       -webkit-transition-duration: 0.3s;
+       -o-transition-duration: 0.3s;
+       transition-duration: 0.3s;
+       -moz-transition-timing-function: ease-in-out;
+       -webkit-transition-timing-function: ease-in-out;
+       -o-transition-timing-function: ease-in-out;
+       transition-timing-function: ease-in-out;
+   }
+   
+   .spoiler.collapsed .spoiler-content {
+       overflow: hidden;
+       max-height: 0;
+   }
+   
+   .spoiler.expanded .spoiler-content {
+       max-height: 3000px;
+       overflow: hidden;
+   }
+   
+   .spoiler .spoiler-content p:first-child {
+       margin-top: 0 !important;
+   }

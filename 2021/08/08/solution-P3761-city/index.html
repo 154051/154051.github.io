@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">【题解】P3761 [TJOI2017]城市 | a154051</title>
+  
+    <link rel="shortcut icon" href="/images/chess-king.svg">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <style>
+    .emoji-coda {
+        display: inline-block !important;
+        position: relative;
+        width: 45px;
+        top: 2px;
+        margin: -3px 3px !important;
+        padding: 0;
+    }
+    </style>
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
+  <!-- <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4383751_lzkm4flpsno.css"> -->
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "a154051";
+  mashiro_option.author_name = "";
+  mashiro_option.site_url = "https://a154051.gitee.io/";
+  mashiro_option.v_appId = "rs4VVxGj5K6z2TqUYwaD7NNF-gzGzoHsz";
+  mashiro_option.v_appKey = "gIRkS6sOIVSMcgoLHU5Ta1Wo";
+  mashiro_option.mathjax = "1";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+  mashiro_option.t_envID = "https://tranquil-centaur-0714bb.netlify.app/.netlify/functions/twikoo";
+
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/星月夜new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/cover2new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/cover1new.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/bg3.jpg,https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/bg5.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="a154051" type="application/atom+xml">
+</head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+
+  <!-- <div class="skin-menu no-select" id="mainskin" style="position: fixed;bottom:65px;left:31px;">
+    <div class="theme-controls row-container">
+          <p style="text-align:center;font-family:'Monaco';font-weight:bold;color:#444"><i style="color:grey" class="fa fa-chevron-left"></i> background <i style="color:grey" class="fa fa-chevron-right"></i></p>
+        <ul class="menu-list"> <li id="white-bg"> 
+            <i class="fa fa-television" aria-hidden="true">
+            </i>
+            </li> 
+            <li id="sakura-bg"> 
+                <i class="iconfont icon-sakura">
+                </i>
+            </li>
+            <li id="gribs-bg">
+                <i class="fa fa-crop-alt" aria-hidden="true">
+                </i>
+            </li>
+            <li id="KAdots-bg">
+                <i class="iconfont icon-dots">
+                </i>
+            </li>
+            <li id="totem-bg">
+                <i class="fa fa-air-freshener" aria-hidden="true">
+                </i>
+            </li>
+            <li id="pixiv-bg">
+                <i class="iconfont icon-pixiv">
+                </i>
+            </li>
+            <li id="bing-bg">
+                <i class="iconfont icon-bing">
+                </i>
+            </li>
+            <li id="dark-bg">
+                <i class="fa fa-moon-o" aria-hidden="true">
+                </i>
+            </li>
+        </ul>
+    </div>
+    <canvas id="night-mode-cover">
+    </canvas>
+</div> 
+  <div class="changeSkin-gear no-select" style="background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; visibility: visible; bottom: 0px;"> 
+    <div class="keys" id="setbtn"> 
+      <button id="open-skinMenu">
+          <style>
+          button#open-skinMenu{
+              transition: all 0.2s linear 0s;
+              outline:none;
+              font-size:16px;
+              position:fixed;
+              bottom:13px;
+              left:15px;
+              background-color: rgba(255,255,255,.95);
+              border-radius: 20px;
+              box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1), 0 3px 8px 0 rgba(0,0,0,0.1);
+          }
+          button#open-skinMenu:hover{
+              transition: all 0.2s linear 0s;
+              background-color: rgb(255, 165, 0);
+              color: rgba(255,255,255);
+          }
+          </style>
+          <i class="iconfont icon-gear inline-block rotating">
+        </i> 
+          SCHEME TOOL | 主题工具 
+      </button>
+    </div> 
+  </div> -->
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://a154051.gitee.io/">
+          <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/头像new.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>菜就多练练</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="http://github.com/154051" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://space.bilibili.com/165723104" target="_blank" class="social-github" title="bilibili">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/bilibili.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.luogu.com.cn/user/347122" target="_blank" class="social-github" title="洛谷">
+                    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/social/luogu.jpg">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <!--  <div id="video-btn" class="loadvideo videolive">  
+    </div>-->
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono">a154051</span>
+            <span class="shironeko"></span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-home faa-wrench" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          题解
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%AC%94%E8%AE%B0/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          笔记
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/tags/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-tags faa-vertical" aria-hidden="true"></i>
+                    标签
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <script>
+        (function (document) {
+            [].forEach.call(document.getElementsByClassName('spoiler'), function(panel) {
+                panel.getElementsByClassName('spoiler-title')[0].onclick = function() {
+                    panel.classList.toggle("collapsed");
+                    panel.classList.toggle("expanded");
+                }
+            });
+        })(document);
+      </script>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/tocbot/4.8.0/tocbot.css">
+
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center-sakura single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/8-8_2.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/8-8_2.jpg">
+    </div>
+    <header class="pattern-header single-header" style="text-shadow: 0 0 7px #000,0 0 7px #000">
+      <h1 class="entry-title">
+      【题解】P3761 [TJOI2017]城市</h1>
+      <p class="entry-census">
+        <span>
+          <a href="/">
+            <img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/头像new.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="/">a154051</a>
+        </span>
+        <span class="bull">
+        <i class="fa fa-calendar" aria-hidden="true"></i></span>
+        2021-8-8    
+        <span class="bull"></span>
+        
+          <span><i class="fa fa-archive"></i> 分类于  
+            <span class="article-category"><a href="/categories/%E9%A2%98%E8%A7%A3/" > 题解</a></span>
+          
+        </span>
+        
+        <span class="bull">
+        <i class="fa fa-eye" aria-hidden="true"></i></span>
+        <span id="twikoo_visitors">0</span> 次阅读
+          <!-- <span id="/2021/08/08/solution-P3761-city/" class="leancloud_visitors" data-flag-title="【题解】P3761 [TJOI2017]城市"></span>次阅读 -->
+      
+    </p>
+      
+        <div>
+          <ul class="spfk-ul">
+            <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+            
+              <li class="spfk-li"><a href="/tags/树/" class="butterfly-tags">树</a></li>
+            
+          </ul>
+        </div>
+        <script>
+          function colorInit(c,num){for(var i=1;i<=num;++i)c.push(i+'');}
+          function paintTags(){
+              var colorNumber=8,tagColors=[],tags=document.getElementsByClassName('butterfly-tags');
+              for(var i = 0 ; i < tags.length ; ++i){
+                  if(!tagColors.length)colorInit(tagColors,colorNumber);
+                  var j=Math.floor(Math.random()*tagColors.length);
+                  tags[i].classList.add("spfk-color"+tagColors[j]);
+                  tagColors.splice(j,1);
+              }
+          }
+          paintTags()
+      </script>
+      
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3761">P3761 [TJOI2017]城市</a></p>
+<p><strong>前排提醒：本文着重证明了 $O(n)$ 的做法，$O(n^2)$ 的做法讲得不是很明白。</strong></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一颗有边权的树，删去一条边并加上一条权值相同的边（要求操作后还是一颗树），求树的直径最小是多少。</p>
+<p>$n\le 5000$。</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>很妙的一道题，主要难点在于结论的寻找和证明。</p>
+<p>最朴素的做法是枚举每条要删除的边，整棵树被分为了两颗子树，再枚举两颗子树上选的点，计算直径。时间复杂度 $O(n^4)$。</p>
+<h3 id="O-n-2-做法"><a href="#O-n-2-做法" class="headerlink" title="$O(n^2)$ 做法"></a>$O(n^2)$ 做法</h3><p>新加入一条边后，新树的直径有两种情况：</p>
+<ul>
+<li><p>直径在分出来的两颗树中的一个。</p>
+</li>
+<li><p>直径经过了新加入的边。</p>
+</li>
+</ul>
+<p>对于第一种情况，新加入的边不会产生影响。</p>
+<p>对于第二种情况，要想办法连边使得新树的直径最小。可以发现两棵树要连的点都是树的中心（即该点到其他节点的最远距离最小）。</p>
+<p>考虑 $DP$，第一遍 $\text{dfs}$ 求出在该节点子树内从它出发的最远和次远距离。</p>
+<p>第二遍 $\text{dfs}$ 根据父亲的信息求出在整棵树中从该节点出发的最远和次远距离，在这个过程中找出树的中心。</p>
+<p>所以优化后的做法为枚举每条要删除的边，求出分出来的两颗树的直径和中心，比较这三个值，取最大。时间复杂度 $O(n^2)$。</p>
+<p>这个复杂度已经可以通过这道题了，但是还能继续优化到 $O(n)$。</p>
+<h3 id="O-n-做法"><a href="#O-n-做法" class="headerlink" title="$O(n)$ 做法"></a>$O(n)$ 做法</h3><p>时间复杂度的瓶颈主要在 $DP$，考虑优化。</p>
+<p><strong>结论一：树的中心是树的直径的（带权）中点。</strong></p>
+<p>证明：</p>
+<ul>
+<li><p>对于直径上任意一点 $u$，显然从 $u$ 出发的最远路径一定在直径上，若要求直径中心则只需比较 $u$ 到直径两端的最远距离，所以直径中点 $mid$ 是该直径的中心。</p>
+</li>
+<li><p>对于不在直径上的点 $v$，从 $v$ 出发到 $mid$，再到直径较远一端的所走路程，必然比直接从 $mid$ 出发的所走路程远。根据定义，树的中心要到其他点的最远距离最小，所以 $v$ 不是树的中心。</p>
+</li>
+</ul>
+<p>综上，$mid$ 是树的中心。证毕。</p>
+<p>问题就转化为了如何求树的直径的中点。</p>
+<p>对于删边操作，可以发现只有删原树直径上的边才有意义，因为删其他边直径没有变。</p>
+<p>所以从直径一端出发到另一端依次删除边。但是每次都要遍历整棵树求直径中点，时间复杂度还是没有变，考虑优化。</p>
+<p>以下只针对删边后的两颗树中的一个分析，另一个同理。</p>
+<p><strong>结论二：对于一颗分割出来的树，它直径的一端一定是原树直径的一端。</strong></p>
+<p>证明：</p>
+<p>反证法，如图，</p>
+<p><img src="https://pic.imgdb.cn/item/610f4e4b5132923bf8ccee00.png" alt=""></p>
+<p>删边后得到了以 $C$ 为根的子树，假设 $EF$ 该树的直径，说明 $\text{dis}(E,F)&gt;\text{dis}(A,B)$，$\text{dis}(E,F)+\text{dis}(B,E)&gt;\text{dis}(A,B)$，则 $FD$ 比 $AD$ 更长，与 $AD$ 是原树直径矛盾，该假设不成立，所以 $A$ 一定是删边后树的直径的一端。证毕。</p>
+<p>考虑如何快速维护删边后树的直径：</p>
+<p>（图片来自<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/getchar123/solution-p3761">getchar123的题解</a>）</p>
+<p><img src="https://pic.imgdb.cn/item/610f59395132923bf8db329e.png" alt=""></p>
+<p>（橙色为截掉的边，绿色为直径，右图紫色的点为重复遍历的点，红色为新遍历的点）</p>
+<p>在遍历删边的过程中，如果每次都遍历整棵树，会有大量重复节点（紫色点），根据结论二，我们只需要考虑经过新加进来的 原树直径上的点 能否得到更长的路径。</p>
+<p>即从 $10$ 号点出发遍历红色点，找到最长路径，加上 $\text{dis}(1,10)$，与原来的直径比较。</p>
+<p>这样每次都只需要遍历新加进来的节点，维护直径的总时间复杂度优化到了 $O(n)$。</p>
+<p>但是每次维护直径中点都要遍历一遍直径，时间复杂度还是 $O(n^2)$，继续优化。</p>
+<p><strong>结论三：对于分割出来的树，它的直径中点一定在原树直径上。</strong></p>
+<p>证明：</p>
+<p>如图，删边后的树的直径一定是形如这个样子，</p>
+<p><img src="https://pic.imgdb.cn/item/610f5e3d5132923bf8e19add.png" alt=""></p>
+<p>分割出来的树的直径和原树的直径的重叠部分一定大于非重叠部分，即 $\text{dis}(A,B)&gt;\text{dis}(E,B)$，如果不是，则路径 $ED$ 就会比原树直径还长。</p>
+<p>根据直径中点的定义，中点一定在路径 $AB$ 上。证毕。</p>
+<p>可以发现删边过程中，分割出来的树的直径是不下降的，新树和原树的重叠部分也是不下降的。</p>
+<p>所以每次只需要从上一次的中点开始，在原树直径上向后遍历，直到当前点比上一个点劣时停止（再往后只会更劣）。维护中点的总时间复杂度为 $O(n)$。</p>
+<p>综上，该算法的时间复杂度为 $O(n)$。</p>
+<p>这里只维护了分割出来的其中一棵树，对于另一棵树可以倒过来重复这些操作。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="lang-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+const int mn=5e3+7;
+struct node &#123;
+    int mid,len_L,len_R;  //分别是中点，直径，半径（中点到其他点的最远距离）
+&#125;ans[3][mn];
+int tt=0,fr[mn],nx[mn*2],to[mn*2],w[mn*2];
+int rt=1,rt2=1,maxlen=0,d[mn],mx=0;
+int q[mn],top=0;  //存直径上所有点
+bool vis[mn];
+void add(int x,int y,int v)
+&#123;
+    ++tt;
+    nx[tt]=fr[x];
+    fr[x]=tt;
+    to[tt]=y;
+    w[tt]=v;
+&#125;
+void findrt(int x,int fa,int dis)
+&#123;
+    if(dis&gt;maxlen)  maxlen=dis,rt=x;
+    for(int i=fr[x];i;i=nx[i])
+      if(to[i]!=fa)  findrt(to[i],x,dis+w[i]);
+&#125;
+void findrt2(int x,int fa,int dis)
+&#123;
+    d[x]=dis;
+    if(dis&gt;maxlen)  maxlen=dis,rt2=x;
+    for(int i=fr[x];i;i=nx[i])
+      if(to[i]!=fa)  findrt2(to[i],x,dis+w[i]);
+&#125;
+void deep(int x,int fa,int dis)
+&#123;
+    d[x]=dis;
+    for(int i=fr[x];i;i=nx[i])
+      if(to[i]!=fa)  deep(to[i],x,dis+w[i]);
+&#125;
+bool dfs(int x,int fa,int dis)
+&#123;
+    q[++top]=x;
+
+    if(x==rt2)  return 1;
+    for(int i=fr[x];i;i=nx[i])
+    &#123;
+        int y=to[i];
+        if(y==fa)  continue;
+        bool flag=dfs(y,x,dis+w[i]);
+        if(flag)  return 1;
+    &#125;
+    --top;
+    return 0;
+&#125;
+void dfs2(int x,int dis)
+&#123;
+    vis[x]=1;
+    mx=max(mx,dis);
+    for(int i=fr[x];i;i=nx[i])
+    &#123;
+        int y=to[i];
+        if(vis[y])  continue;
+        dfs2(y,dis+w[i]);
+    &#125;
+&#125;
+void sol(int k)
+&#123;
+    memset(vis,0,sizeof(vis));
+    for(int i=1;i&lt;=top;++i)  vis[q[i]]=1;
+    int mid=1,len_L=0,len_R=0;
+    ans[k][1]=(node)&#123;mid,len_L,len_R&#125;;
+    for(int i=2;i&lt;top;++i)
+    &#123;
+        mx=0;
+        dfs2(q[i],0);  //遍历新加进来的节点
+        if(d[q[i]]-d[q[1]]+mx&lt;=len_L)
+            ans[k][i]=(node)&#123;mid,len_L,len_R&#125;;
+        else
+        &#123;
+            len_L=d[q[i]]-d[q[1]]+mx;
+            len_R=max(d[q[mid]]-d[q[1]],len_L-d[q[mid]]-d[q[1]]);
+            for(int j=mid+1;j&lt;=i;++j)
+            &#123;
+                int dis=max(d[q[j]]-d[q[1]],len_L-d[q[j]]-d[q[1]]);
+                if(dis&gt;len_R)  break;  //这里就直接跳出，后面只会更劣
+                len_R=dis;mid=j;
+            &#125;
+            ans[k][i]=(node)&#123;mid,len_L,len_R&#125;;
+        &#125;
+    &#125;
+&#125;
+int main()
+&#123;
+    int n;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;n;++i)
+    &#123;
+        int x,y,v;
+        scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;v);
+        add(x,y,v);
+        add(y,x,v);
+    &#125;
+    findrt(1,0,0);  //找直径一端
+    maxlen=0;
+    findrt2(rt,0,0);  //找另一端
+    maxlen=0;
+    dfs(rt,0,0);  //存直径
+    sol(1);
+/***************以下为倒过来处理另一棵树***************/
+    memset(d,0,sizeof(d));
+    top=0;
+    swap(rt,rt2);
+    deep(rt,0,0);  //根变了，深度也要重新求
+    dfs(rt,0,0);
+    sol(2);
+
+    int ANS=1e9;
+    for(int i=1;i&lt;top;++i)
+      ANS=min(ANS,max(d[q[i+1]]-d[q[i]]+ans[2][i].len_R+ans[1][top-i].len_R,max(ans[2][i].len_L,ans[1][top-i].len_L)));
+    cout&lt;&lt;ANS;
+    return 0;
+&#125;
+</code></pre>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/09/01/solution-P3291-yao-guai/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/9-1.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/9-1.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                【题解】P3291 [SCOI2016]妖怪</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2021/07/17/solution-P4248-cha-yi/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/7-17.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/7-17.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                【题解】P4248 [AHOI2013]差异</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<!-- <div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "rs4VVxGj5K6z2TqUYwaD7NNF-gzGzoHsz",
+        appKey: "gIRkS6sOIVSMcgoLHU5Ta1Wo",
+        master: 'eeb5bf9161f41a9bbee1b6af0daba9b0',
+        tagMeta: ["博主","小伙伴","访客"],
+        path: window.location.pathname,
+        placeholder: "你是我一生只会遇见一次的惊喜 ...",
+        metaPlaceholder: {"nick":"昵称","mail":"邮箱(用于获取头像和收到回复,非必填)","link":"网址(https://)"},
+        avatar: 'identicon'
+      })
+  }
+</script> -->
+<div id="tcomment"></div>
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.21/dist/twikoo.all.min.js"></script>
+<script>
+twikoo.init({
+  envId: 'https://tranquil-centaur-0714bb.netlify.app/.netlify/functions/twikoo', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+  el: '#tcomment', // 容器元素
+  // region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+  // path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+  // lang: 'zh-CN', // 用于手动设定评论区语言，支持的语言列表 https://github.com/imaegoo/twikoo/blob/main/src/client/utils/i18n/index.js
+})
+</script>
+
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="/" class="profile gravatar"><img src="https://a154051-img-1321592229.cos.ap-beijing.myqcloud.com/img/头像new.jpg" itemprop="image" alt="a154051" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="/" itemprop="url" rel="author">a154051</a>
+            </h3>
+          </div>
+        </div>
+        <p><i class="iconfont icon-write"></i>菜就多练练</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+<!-- <script type="module">
+    import { pageviewCount } from 'https://unpkg.com/@waline/client/dist/pageview.mjs';
+  
+    pageviewCount({
+      serverURL: 'https://silver-griffin-40160b.netlify.app/.netlify/functions/comment',
+      path: window.location.pathname,
+  
+      // 可选的，用于自定选择器，默认为 `'.waline-pageview-count'`
+      // selector: 'waline-pageview-count',
+  
+      // 可选的，是否在获取时增加访问量，默认为 `true`
+      // update: true,
+    });
+  </script> -->
+
+
+  <!-- <script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.6/latest.js?config=TeX-MML-AM_CHTML"></script> -->
+  <!-- <script type="text/javascript" src="https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            // PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 a154051<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2018</p>
+    </div>
+    <div class="footer-device">
+     <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+        </br>
+        <!-- 不蒜子统计 -->
+        <span id="busuanzi_container_site_pv">
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        </span>
+        <span class="post-meta-divider">|</span>
+        <span id="busuanzi_container_site_uv" style='display:none'>
+          本站访客数<span id="busuanzi_value_site_uv"></span>人
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+
+    
+
+
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script> -->
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://cdn.jsdelivr.net/gh/honjun/hojun@1.2","name":"Unbroken.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="https://cdn.jsdelivr.net/gh/154051/cdn@master/img/头像new.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">a154051</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="http://github.com/154051" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-home faa-wrench" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E9%A2%98%E8%A7%A3/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  题解
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%AC%94%E8%AE%B0/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  笔记
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/tags/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-tags faa-vertical" aria-hidden="true"></i>
+            标签
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/theme-sakura/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2019 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+</body>
+</html>
