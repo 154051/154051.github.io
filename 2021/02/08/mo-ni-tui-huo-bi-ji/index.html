@@ -412,13 +412,13 @@
         <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
         
         <div class="entry-content">
-          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>模拟退火(Simulated Annealing，SA)是一种随机化算法。它适用于解决方案量极大的问题，如旅行商问题，求解多峰函数极值等问题。</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><blockquote>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>模拟退火(Simulated Annealing，SA)是一种随机化算法。它适用于解决方案量极大的问题，如旅行商问题，求解多峰函数极值等问题。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
 <p>模拟退火算法来源于固体退火原理，是一种基于概率的算法，将固体加温至充分高，再让其徐徐冷却，加温时，固体内部粒子随温升变为无序状，内能增大，而徐徐冷却时粒子渐趋有序，在每个温度都达到平衡态，最后在常温时达到基态，内能减为最小。</p>
 <p>——百度百科</p>
 </blockquote>
 <p>把问题看作固体内部粒子，把最优解看作平衡态，用程序模拟退火的过程，就是模拟退火算法。</p>
-<h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><p>模拟退火中有三个参数，分别是初始温度 $T_0$、降温系数 $\Delta$。其中，$\Delta$ 是一个略小于 $1$ 的数。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p>模拟退火中有三个参数，分别是初始温度 $T_0$、降温系数 $\Delta$。其中，$\Delta$ 是一个略小于 $1$ 的数。</p>
 <p>令温度 $T=T_0$，然后每次降温时 $T=T*\Delta$，直到 $T=0$。</p>
 <p>在每次降温过程中，都要用当前解产生一个新解，即 $x_1=x_0+\Delta x$。其中，$\Delta x \in R$ 并且 $\left\vert \Delta x\right\vert \propto T$，表示解的变动值，温度越低，它的变化幅度越小，产生的新解也会越来越趋近于最优解，如图，</p>
 <p><img src="https://oi-wiki.org/misc/images/simulated-annealing.gif" alt="模拟退火过程"></p>
@@ -433,7 +433,7 @@
 </ol>
 <p>当温度降为 $0$ 时，就得到了最优解。</p>
 <p><strong>注意</strong>：为了使结果更准确，一般不会直接选取最后的解作为答案，而是在模拟退火的过程中记录遇到的所有解中的最优解。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>以<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1337">P1337 [JSOI2004]平衡点 / 吊打XXX</a>为例。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1337">P1337 [JSOI2004]平衡点 / 吊打XXX</a>为例。</p>
 <p>由<del>题解</del>物理知识可知，在平衡态时，系统的总能量最小，在该题中，总能量即物体总势能，物体离地面高度越低，势能越小，也就是使绳子在桌子上的长度尽量小。</p>
 <p>所以物体的势能与桌子上绳子的长度和物体的质量成正比，也就是找一点使得 $\sum_{i=1}^n dis_i * w_i$最小（$dis_i$ 是绳结到第 $i$ 个洞口的距离）。</p>
 <p>代码如下</p>
@@ -631,7 +631,7 @@ twikoo.init({
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2023 a154051<br>
+      &copy; 2026 a154051<br>
       powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
