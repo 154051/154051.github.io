@@ -11,8 +11,11 @@ const practiceFilters = document.getElementById("practiceFilters");
 const filterButtons = Array.from(document.querySelectorAll(".filter"));
 const modeButtons = Array.from(document.querySelectorAll(".mode-tab"));
 const examPanel = document.getElementById("examPanel");
+const examBottomPanel = document.getElementById("examBottomPanel");
 const submitExamButton = document.getElementById("submitExam");
 const refreshExamButton = document.getElementById("refreshExam");
+const submitExamBottomButton = document.getElementById("submitExamBottom");
+const refreshExamBottomButton = document.getElementById("refreshExamBottom");
 const examScore = document.getElementById("examScore");
 const examMeta = document.getElementById("examMeta");
 const examResult = document.getElementById("examResult");
@@ -29,11 +32,12 @@ function createEmptyExam() {
   };
 }
 
-function answerLabel(question) {
-  return question.answer
-    .map((key) => {
-      const option = question.options.find((item) => item.key === key);
-      return option ? `${key}. ${option.text}` : key;
+function answerLabel(question, options = question.options) {
+  return options
+    .filter((option) => question.answer.includes(option.key))
+    .map((option) => {
+      const label = option.displayKey || option.key;
+      return `${label}. ${option.text}`;
     })
     .join("；");
 }
@@ -60,7 +64,10 @@ function startExam() {
   const multiples = sample(questions.filter((question) => question.type === "multiple"), 5);
   const paper = shuffle([...singles, ...multiples]).map((question) => ({
     ...question,
-    displayOptions: shuffle(question.options),
+    displayOptions: shuffle(question.options).map((option, index) => ({
+      ...option,
+      displayKey: String.fromCharCode(65 + index),
+    })),
   }));
 
   exam = {
@@ -80,6 +87,7 @@ function render() {
   searchBox.hidden = isExam;
   practiceFilters.hidden = isExam;
   examPanel.hidden = !isExam;
+  examBottomPanel.hidden = !isExam;
 
   modeButtons.forEach((button) => {
     button.classList.toggle("active", button.dataset.mode === activeMode);
@@ -144,6 +152,7 @@ function renderExam() {
   quizList.replaceChildren(fragment);
   emptyState.classList.remove("show");
   submitExamButton.disabled = exam.submitted;
+  submitExamBottomButton.disabled = exam.submitted;
   updateExamPanel();
 }
 
@@ -214,7 +223,7 @@ function renderQuestion(question, globalNumber, record, context) {
 
     const key = document.createElement("span");
     key.className = "option-key";
-    key.textContent = option.key;
+    key.textContent = option.displayKey || option.key;
 
     const text = document.createElement("span");
     text.textContent = option.text;
@@ -235,7 +244,7 @@ function renderQuestion(question, globalNumber, record, context) {
   if (context.submitted) {
     feedback.classList.add("show", record.correct ? "ok" : "no");
     const result = record.selected.size === 0 ? "未作答" : (record.correct ? "回答正确" : "回答错误");
-    feedback.innerHTML = `${result}<br><span class="answer-text">正确答案：${answerLabel(question)}</span>`;
+    feedback.innerHTML = `${result}<br><span class="answer-text">正确答案：${answerLabel(question, context.options)}</span>`;
   }
 
   card.append(header, optionList, feedback);
@@ -365,5 +374,7 @@ modeButtons.forEach((button) => {
 
 submitExamButton.addEventListener("click", submitExam);
 refreshExamButton.addEventListener("click", startExam);
+submitExamBottomButton.addEventListener("click", submitExam);
+refreshExamBottomButton.addEventListener("click", startExam);
 
 render();

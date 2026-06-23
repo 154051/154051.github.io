@@ -53,6 +53,18 @@
     </section>
 
     <section class="quiz-list" id="quizList" aria-label="题目列表"></section>
+    <section class="exam-panel exam-panel-bottom" id="examBottomPanel" aria-label="模拟考试底部操作" hidden>
+      <div class="exam-summary">
+        <div>
+          <strong>完成检查</strong>
+          <span>交卷后将锁定试卷并显示每题正确答案</span>
+        </div>
+        <div class="exam-actions">
+          <button class="primary" type="button" id="submitExamBottom">交卷</button>
+          <button type="button" id="refreshExamBottom">重新抽题</button>
+        </div>
+      </div>
+    </section>
     <div class="empty-state" id="emptyState">没有匹配的题目</div>
   </main>
   <script src="./questions-1.js"></script>

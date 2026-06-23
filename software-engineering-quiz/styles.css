@@ -198,6 +198,10 @@
       box-shadow: 0 8px 22px rgba(32, 36, 39, 0.05);
     }
 
+    .exam-panel-bottom {
+      margin: 16px 0 0;
+    }
+
     .exam-summary {
       display: flex;
       flex-wrap: wrap;
