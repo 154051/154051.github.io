@@ -1,8 +1,10 @@
 const questions = window.QUIZ_QUESTIONS || [];
+const shortAnswers = window.SHORT_ANSWERS || [];
 const practiceState = new Map(questions.map((question) => [
   question.id,
   { selected: new Set(), confirmed: false, correct: false }
 ]));
+const shortAnswerState = new Map(shortAnswers.map((item) => [item.id, false]));
 
 const quizList = document.getElementById("quizList");
 const emptyState = document.getElementById("emptyState");
@@ -84,8 +86,9 @@ function startExam() {
 
 function render() {
   const isExam = activeMode === "exam";
-  searchBox.hidden = isExam;
-  practiceFilters.hidden = isExam;
+  const isShort = activeMode === "short";
+  searchBox.hidden = isExam || isShort;
+  practiceFilters.hidden = isExam || isShort;
   examPanel.hidden = !isExam;
   examBottomPanel.hidden = !isExam;
 
@@ -99,6 +102,8 @@ function render() {
       return;
     }
     renderExam();
+  } else if (isShort) {
+    renderShortAnswers();
   } else {
     renderPractice();
   }
@@ -154,6 +159,57 @@ function renderExam() {
   submitExamButton.disabled = exam.submitted;
   submitExamBottomButton.disabled = exam.submitted;
   updateExamPanel();
+}
+
+function renderShortAnswers() {
+  const fragment = document.createDocumentFragment();
+
+  shortAnswers.forEach((item, index) => {
+    const shown = shortAnswerState.get(item.id);
+    const card = document.createElement("article");
+    card.className = "question-card short-answer-card";
+    card.dataset.id = item.id;
+
+    const header = document.createElement("header");
+    header.className = "question-head";
+
+    const titleWrap = document.createElement("div");
+    const meta = document.createElement("div");
+    meta.className = "question-meta";
+    meta.innerHTML = `<span class="badge">第 ${index + 1} 题</span><span class="badge">简答</span>`;
+
+    const title = document.createElement("h2");
+    title.className = "question-title";
+    title.textContent = item.question;
+
+    titleWrap.append(meta, title);
+
+    const actions = document.createElement("div");
+    actions.className = "question-actions";
+
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = shown ? "" : "primary";
+    toggle.textContent = shown ? "隐藏答案" : "显示答案";
+    toggle.addEventListener("click", () => {
+      shortAnswerState.set(item.id, !shortAnswerState.get(item.id));
+      render();
+    });
+
+    actions.appendChild(toggle);
+    header.append(titleWrap, actions);
+
+    const answer = document.createElement("div");
+    answer.className = "short-answer-content";
+    answer.hidden = !shown;
+    answer.textContent = item.answer;
+
+    card.append(header, answer);
+    fragment.appendChild(card);
+  });
+
+  quizList.replaceChildren(fragment);
+  emptyState.classList.remove("show");
 }
 
 function renderQuestion(question, globalNumber, record, context) {
@@ -318,6 +374,19 @@ function updateExamPanel() {
 }
 
 function updateStats() {
+  if (activeMode === "short") {
+    const shown = Array.from(shortAnswerState.values()).filter(Boolean).length;
+    document.getElementById("statTotal").textContent = shortAnswers.length;
+    document.getElementById("statChecked").textContent = shown;
+    document.getElementById("statCorrect").textContent = shortAnswers.length - shown;
+    document.getElementById("statWrong").textContent = "-";
+    document.getElementById("statTotalLabel").textContent = "简答题数";
+    document.getElementById("statCheckedLabel").textContent = "已显示";
+    document.getElementById("statCorrectLabel").textContent = "仍隐藏";
+    document.getElementById("statWrongLabel").textContent = "无判分";
+    return;
+  }
+
   if (activeMode === "exam") {
     const records = Array.from(exam.state.values());
     const answered = records.filter((record) => record.selected.size > 0).length;
