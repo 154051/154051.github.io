@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>软件工程头歌题库练习</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<main class="app-shell">
+    <section class="topbar" aria-label="题库概览">
+      <div class="title-row">
+        <div>
+          <h1>软件工程头歌题库练习</h1>
+          <p class="subtitle">单选 60 题，多选 24 题。每题独立判分，可单独复位。</p>
+        </div>
+        <div class="stat-grid" aria-label="练习统计">
+          <div class="stat"><strong id="statTotal">84</strong><span>总题数</span></div>
+          <div class="stat"><strong id="statChecked">0</strong><span>已确认</span></div>
+          <div class="stat"><strong id="statCorrect">0</strong><span>正确</span></div>
+          <div class="stat"><strong id="statWrong">0</strong><span>错误</span></div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input class="search" id="searchBox" type="search" placeholder="搜索题干或选项" aria-label="搜索题干或选项">
+        <div class="filters" aria-label="题目筛选">
+          <button class="filter active" type="button" data-filter="all">全部</button>
+          <button class="filter" type="button" data-filter="single">单选</button>
+          <button class="filter" type="button" data-filter="multiple">多选</button>
+          <button class="filter" type="button" data-filter="unconfirmed">未确认</button>
+          <button class="filter" type="button" data-filter="wrong">错题</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz-list" id="quizList" aria-label="题目列表"></section>
+    <div class="empty-state" id="emptyState">没有匹配的题目</div>
+  </main>
+  <script src="./questions-1.js"></script>
+  <script src="./questions-2.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
