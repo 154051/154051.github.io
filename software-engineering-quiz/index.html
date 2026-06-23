@@ -12,19 +12,23 @@
       <div class="title-row">
         <div>
           <h1>软件工程头歌题库练习</h1>
-          <p class="subtitle">单选 60 题，多选 24 题。每题独立判分，可单独复位。</p>
+          <p class="subtitle">练习模式可逐题确认，模拟考试随机抽 20 道单选和 5 道多选，交卷后统一判分。</p>
         </div>
         <div class="stat-grid" aria-label="练习统计">
-          <div class="stat"><strong id="statTotal">84</strong><span>总题数</span></div>
-          <div class="stat"><strong id="statChecked">0</strong><span>已确认</span></div>
-          <div class="stat"><strong id="statCorrect">0</strong><span>正确</span></div>
-          <div class="stat"><strong id="statWrong">0</strong><span>错误</span></div>
+          <div class="stat"><strong id="statTotal">84</strong><span id="statTotalLabel">总题数</span></div>
+          <div class="stat"><strong id="statChecked">0</strong><span id="statCheckedLabel">已确认</span></div>
+          <div class="stat"><strong id="statCorrect">0</strong><span id="statCorrectLabel">正确</span></div>
+          <div class="stat"><strong id="statWrong">0</strong><span id="statWrongLabel">错误</span></div>
         </div>
       </div>
 
       <div class="toolbar">
+        <div class="mode-tabs" aria-label="模式切换">
+          <button class="mode-tab active" type="button" data-mode="practice">练习模式</button>
+          <button class="mode-tab" type="button" data-mode="exam">模拟考试</button>
+        </div>
         <input class="search" id="searchBox" type="search" placeholder="搜索题干或选项" aria-label="搜索题干或选项">
-        <div class="filters" aria-label="题目筛选">
+        <div class="filters" id="practiceFilters" aria-label="题目筛选">
           <button class="filter active" type="button" data-filter="all">全部</button>
           <button class="filter" type="button" data-filter="single">单选</button>
           <button class="filter" type="button" data-filter="multiple">多选</button>
@@ -32,6 +36,20 @@
           <button class="filter" type="button" data-filter="wrong">错题</button>
         </div>
       </div>
+    </section>
+
+    <section class="exam-panel" id="examPanel" aria-label="模拟考试" hidden>
+      <div class="exam-summary">
+        <div>
+          <strong id="examScore">未交卷</strong>
+          <span id="examMeta">25 题</span>
+        </div>
+        <div class="exam-actions">
+          <button class="primary" type="button" id="submitExam">交卷</button>
+          <button type="button" id="refreshExam">重新抽题</button>
+        </div>
+      </div>
+      <div class="exam-result" id="examResult" hidden></div>
     </section>
 
     <section class="quiz-list" id="quizList" aria-label="题目列表"></section>

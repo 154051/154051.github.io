@@ -69,6 +69,10 @@
       opacity: 0.58;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     .app-shell {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
@@ -137,7 +141,7 @@
       top: 0;
       z-index: 10;
       display: grid;
-      grid-template-columns: minmax(180px, 1fr) auto;
+      grid-template-columns: auto minmax(180px, 1fr) auto;
       gap: 10px;
       align-items: center;
       border: 1px solid var(--line);
@@ -146,6 +150,18 @@
       padding: 10px;
       backdrop-filter: blur(14px);
       box-shadow: 0 8px 24px rgba(30, 36, 40, 0.06);
+    }
+
+    .mode-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mode-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
     }
 
     .search {
@@ -169,6 +185,51 @@
       background: var(--text);
       border-color: var(--text);
       color: #fff;
+    }
+
+    .exam-panel {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 14px 16px;
+      margin: 0 0 16px;
+      box-shadow: 0 8px 22px rgba(32, 36, 39, 0.05);
+    }
+
+    .exam-summary {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .exam-summary strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .exam-summary span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .exam-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exam-result {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      color: var(--text);
+      line-height: 1.7;
     }
 
     .quiz-list {
@@ -340,6 +401,16 @@
 
       .filters {
         justify-content: start;
+      }
+
+      .mode-tabs,
+      .exam-actions {
+        width: 100%;
+      }
+
+      .mode-tabs button,
+      .exam-actions button {
+        flex: 1 1 130px;
       }
 
       .question-head {
